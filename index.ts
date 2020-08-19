@@ -1,4 +1,6 @@
 import {Client, TextChannel} from 'discord.js';
+import helpers from './helpers';
+import commands from './commands';
 import config = require('./config.json');
 
 const bot = new Client();
@@ -15,8 +17,14 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
 });
 
 bot.on('message', (message) => {
-    if (message.toString() === '!го катать') {
-        const textChannel = bot.channels.cache.get(message.channel.id) as TextChannel;
-        textChannel.send('в овервощ? @everyone');
+    const content = message.toString();
+    const command = helpers.getCommandFromString(content);
+    if (command) {
+        const cmdFunction = commands[command];
+        if (!cmdFunction) {
+            message.reply('неизвестная команда.');
+            return;
+        }
+        cmdFunction(message.channel, message);
     }
 });
