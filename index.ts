@@ -25,6 +25,6 @@ bot.on('message', (message) => {
             message.reply('неизвестная команда.');
             return;
         }
-        cmdFunction(message.channel, message);
+        cmdFunction.call(commands, message.channel, message);
     }
 });

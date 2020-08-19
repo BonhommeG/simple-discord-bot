@@ -4,7 +4,7 @@ export default {
     '!го': function (channel: TextChannel, message: Message) {
         const goodGames: string[] = [
             'овервощ', 'арех', 'пираты', 'своя игра'
-        ]
+        ];
         const game = message.toString().slice(4);
         if (game.length === 0) {
             const help = 'Команда !го <название игры>\n' +
@@ -13,9 +13,13 @@ export default {
             return;
         }
         if (!goodGames.includes(game)) {
-            message.reply('не знаю такой игры');
+            message.reply('не знаю такой игры.');
             return;
         }
         channel.send(`@everyone, тут ${message.author} зовёт в ${game}, го?`);
+    },
+    '!help': function (channel: TextChannel, message: Message) {
+        const commandList = Object.keys(this).join(', ');
+        message.reply(`Доступные команды: ${commandList}.`);
     }
 }
