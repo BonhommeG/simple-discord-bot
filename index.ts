@@ -8,7 +8,7 @@ bot.login(config.token);
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
     const userName = newState.member.displayName;
-    const textChannel = newState.guild.channels.cache.find(channel => channel.name === 'text') as TextChannel;
+    const textChannel = newState.guild.channels.cache.find(channel => channel.name === config.textChannel) as TextChannel;
 
     if ((oldState.channelID !== newState.channelID) && newState.channel) {
         const channelName = newState.channel.name;
