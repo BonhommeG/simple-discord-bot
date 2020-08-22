@@ -1,4 +1,10 @@
 .idea/
+.vscode
 node_modules/
 config.json
 *.js
+
+# Log files
+logs
+*.log
+npm-debug.log*
