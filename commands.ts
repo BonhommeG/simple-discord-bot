@@ -1,7 +1,7 @@
 import {Message, TextChannel} from 'discord.js';
 
 export default {
-    '!го': (channel: TextChannel, message: Message) => {
+    '!го': (channel: TextChannel, message: Message): void => {
         const goodGames: string[] = [
             'овервощ', 'арех', 'пираты', 'своя игра'
         ];
@@ -18,8 +18,8 @@ export default {
         }
         channel.send(`@everyone, тут ${message.author} зовёт в ${game}, го?`);
     },
-    '!help': (channel: TextChannel, message: Message) => {
+    '!help': (channel: TextChannel, message: Message): void => {
         const commandList = Object.keys(this).join(', ');
         message.reply(`Доступные команды: ${commandList}.`);
     }
-}
+};
