@@ -17,8 +17,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
 });
 
 bot.on('message', (message) => {
-    const content = message.toString();
-    const command = helpers.getCommandFromString(content);
+    const command = helpers.getCommandFromString(message.toString());
     if (command) {
         const cmdFunction = commands[command];
         if (!cmdFunction) {
