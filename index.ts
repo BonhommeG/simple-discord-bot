@@ -2,6 +2,7 @@ import {Client, TextChannel} from 'discord.js';
 import helpers from './helpers';
 import commands from './commands';
 import config = require('./config.json');
+import Quiz from "./games/quiz";
 
 const bot = new Client();
 bot.login(config.token);
@@ -20,10 +21,18 @@ bot.on('message', (message) => {
     const command = helpers.getCommandFromString(message.toString());
     if (command) {
         const cmdFunction = commands[command];
-        if (!cmdFunction) {
-            message.reply('неизвестная команда.');
+        if (cmdFunction) {
+            cmdFunction.call(commands, message.channel, message);
             return;
         }
-        cmdFunction.call(commands, message.channel, message);
+
+        // todo сделать норм подгрузку команд из модулей
+        const quizCommandFunction = Quiz.commands[command];
+        if (quizCommandFunction) {
+            quizCommandFunction.call(Quiz.commands, message.channel, message);
+            return;
+        }
+
+        message.reply('неизвестная команда.');
     }
 });
